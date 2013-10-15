@@ -224,6 +224,10 @@ define(["../../../declare",
 	                 return grid.forumAction.getTooltip(item);
 	             }
 	         },
+	         
+	         getUserProfileHref: function(grid,item,i,items){
+	        	 return this.getProfileUrl(grid,item.getValue("authorUserid"));
+	         }
 	    	
 	    });
 	
