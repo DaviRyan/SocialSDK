@@ -138,6 +138,9 @@ define(["../../../declare", "../../../lang", "../../../dom", "../../../widget/_T
 		 * @param event the blur event
 		 */
 		handleBlur: function(element,obj,event){
+			if(!event){
+        		event = window.event;
+        	}
 			//For Keyboard Accessibility, this only needs to work for firefox(accessible path) if other browsers 
 			//do not support this property that is okay
 			if(event.explicitOriginalTarget){
@@ -160,6 +163,9 @@ define(["../../../declare", "../../../lang", "../../../dom", "../../../widget/_T
 		 * @param event  The Event 
 		 */
 		setSelectedApplication: function(element,object,event){
+			if(!event){
+        		event = window.event;
+        	}
 			this.searchBoxAction.setSelectedApplication(element,object,event,this);
 		},
 
@@ -171,6 +177,9 @@ define(["../../../declare", "../../../lang", "../../../dom", "../../../widget/_T
 		 * @param event The event
 		 */
 		displayHighlight: function(element,object,event){
+			if(!event){
+        		event = window.event;
+        	}
 			this.searchBoxAction.highLight(element,object,event);
 		},
 		
@@ -182,6 +191,9 @@ define(["../../../declare", "../../../lang", "../../../dom", "../../../widget/_T
 		 * @param event  The Event 
 		 */
 		closeMemberItem: function(element,object,event){
+			if(!event){
+        		event = window.event;
+        	}
 			this.searchBoxAction.closeMemberItem(this, element,object,event);
 		},
 		
@@ -194,6 +206,9 @@ define(["../../../declare", "../../../lang", "../../../dom", "../../../widget/_T
 		 * @param event The Event
 		 */
 		removeHighlight: function(element,object,event){
+			if(!event){
+        		event = window.event;
+        	}
 			this.searchBoxAction.removeHighlight(element,object,event);
 		},
 		
@@ -203,6 +218,9 @@ define(["../../../declare", "../../../lang", "../../../dom", "../../../widget/_T
 		 * @param event The Event 
 		 */
 		setSearchQuery: function(element,object,event){
+			if(!event){
+        		event = window.event;
+        	}
 			this.searchBoxAction.setSearchQuery(event,this);
 		},
 		
@@ -212,6 +230,9 @@ define(["../../../declare", "../../../lang", "../../../dom", "../../../widget/_T
 		 * @param event The event
 		 */
 		search: function(element,object,event){
+			if(!event){
+        		event = window.event;
+        	}
 			this.searchBoxAction.search(event,this);
 		},
 		
@@ -223,10 +244,16 @@ define(["../../../declare", "../../../lang", "../../../dom", "../../../widget/_T
 		 * @param event the Event
 		 */
 		onKeyPress: function(element, obj, event){
+			if(!event){
+        		event = window.event;
+        	}
 			this.searchBoxAction.onKeyPress(element, obj, event, this);
 		},
 		
 		suggest: function(element, obj, event){
+			if(!event){
+        		event = window.event;
+        	}
 			if(this.searchSuggest == "on"){
 				this.searchBoxAction.suggest(event, this);
 			}			
@@ -251,6 +278,9 @@ define(["../../../declare", "../../../lang", "../../../dom", "../../../widget/_T
 			 * @param event the Event
 			 */
 			onKeyPress: function(element, obj, event,self){
+				if(!event){
+	        		event = window.event;
+	        	}
 				//If the user presses enter
 				if(event.key == "Enter"){
 					self.setSelectedApplication(element.rows[self._selectedRow], obj, event);
@@ -295,6 +325,9 @@ define(["../../../declare", "../../../lang", "../../../dom", "../../../widget/_T
 			 * @param event  The Event 
 			 */
 			closeMemberItem: function(context, element,object,event){
+				if(!event){
+	        		event = window.event;
+	        	}
 				// Get parent node
 				var item = event.target.parentNode;
 
@@ -372,6 +405,9 @@ define(["../../../declare", "../../../lang", "../../../dom", "../../../widget/_T
 			 * @param self Context
 			 */
 			setSelectedApplication: function(element,object,event,self){
+				if(!event){
+	        		event = window.event;
+	        	}
 				this.removeHighlight(element, object, event);
 				self.selectedApplication = element.children[1].textContent;
 				self.renderer.removePopUp(self.domNode,this._appsPopUp);
@@ -381,6 +417,9 @@ define(["../../../declare", "../../../lang", "../../../dom", "../../../widget/_T
 			
 			
 			setSuggestedSearch: function(event,popUp,context){
+				if(!event){
+	        		event = window.event;
+	        	}
 				var value = event.target.textContent;
 				var id = event.target.id;
 				var input = this._searchInput;
@@ -522,7 +561,9 @@ define(["../../../declare", "../../../lang", "../../../dom", "../../../widget/_T
 			 * @param popUp the popUp Element where results are displayed 
 			 */
 			handleSuggestResult: function(results,context,popUp){
-				popUp.innerHTML = "";
+				while (popUp.firstChild) {
+				    popUp.removeChild(popUp.firstChild);
+				}
 				for(var i=0;i<results.length;i++){
             		var row = document.createElement("tr");
             		var data = document.createElement("td");
@@ -530,7 +571,8 @@ define(["../../../declare", "../../../lang", "../../../dom", "../../../widget/_T
             		var id = results[i].getId();
             		data.innerHTML = title;
             		data.id = results[i].getId();
-            		data.style = "cursor:pointer";
+            		//data.style = "cursor:pointer";
+            		data.setAttribute("style","cursor:pointer");
             		data.onclick = function (event) { 
             			
             			context.searchBoxAction.setSuggestedSearch(event,popUp,context);
