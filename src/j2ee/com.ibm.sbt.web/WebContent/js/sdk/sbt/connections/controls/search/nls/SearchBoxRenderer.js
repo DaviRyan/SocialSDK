@@ -31,6 +31,28 @@ define({
         refine: "Refine Search Results",
         search: "Search",
         allConnectionsIcon: "All Connections Icon",
-        icon: "Icon"
+        icon: "Icon",
+        profilesByName: "Profiles By Name",
+        profilesByKeyword: "Profiles By Keyword",
+        searchDirectory: "Directory Search",
+        myCommunities: "My Communities",
+        publicCommunities: "Public Communities",
+        myActivities: "My Activities",
+        allActivities: "All Activities",
+        toDo: "To Do List",
+        templates: "Templates",
+        myBlogEntries: "My Blog Entries",
+        publicBlogs: "Public Blogs",
+        publicBlogEntries: "Public Blog Entries",
+        publicIdeationBlogs: "Public Ideation Blogs",
+        publicIdeas: "Public Ideas",
+        publicBookmarks: "Public Bookmarks",
+        myBookmarks: "My Bookmarks",
+        allFiles: "All Files",
+        filesByPerson: "Files By Person",
+        allForums: "All Forums",
+        publicWikis: "Public wikis",
+        goToWiki: "Go To Wiki..."
+        
     }
 });

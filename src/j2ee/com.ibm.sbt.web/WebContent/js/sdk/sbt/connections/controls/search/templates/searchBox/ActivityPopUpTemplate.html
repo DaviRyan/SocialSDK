@@ -1,0 +1,58 @@
+<table role="presentation" tabindex="0"
+	data-dojo-attach-event="blur: handleBlur, onkeypress: onKeyPress"
+	class="dijit dijitMenu dijitReset dijitMenuTable lotusNavMenu lconnSearchScope dijitMenuActive"
+	style="position:fixed;">
+	<tbody tabindex="0" class="dijitReset">
+
+		<tr
+			data-dojo-attach-event="onmouseenter: displayHighlight, onmouseleave: removeHighlight, onclick: setSelectedApplication"
+			class="dijitReset dijitMenuItem lotusAlignLeft">
+
+			<td class="dijitReset"><img alt=""
+				class="dijitMenuItemIcon lconnSprite lconnSprite-iconActivities16" />
+			</td>
+
+			<td colspan="2" class="dijitReset dijitMenuItemLabel">${nls.myActivities}</td>
+		</tr>
+
+		<tr
+			data-dojo-attach-event="onmouseenter: displayHighlight, onmouseleave: removeHighlight, onclick: setSelectedApplication"
+			class="dijitReset dijitMenuItem">
+
+			<td class="dijitReset"><img alt=""
+				class="dijitMenuItemIcon lconnSprite lconnSprite-iconActivities16" />
+			</td>
+
+			<td colspan="2" class="dijitReset dijitMenuItemLabel">${nls.allActivities}</td>
+		</tr>
+
+		<tr
+			data-dojo-attach-event="onclick: setSelectedApplication, onmouseenter: displayHighlight, onmouseleave: removeHighlight"
+			class="dijitReset dijitMenuItem">
+			<td class="dijitReset"><img alt=""
+				class="dijitMenuItemIcon lconnSprite lconnSprite-iconToDoList16" />
+			</td>
+			<td colspan="2" class="dijitReset dijitMenuItemLabel">${nls.toDo}</td>
+		</tr>
+		
+		<tr
+			data-dojo-attach-event="onclick: setSelectedApplication, onmouseenter: displayHighlight, onmouseleave: removeHighlight"
+			class="dijitReset dijitMenuItem">
+			<td class="dijitReset"><img alt=""
+				class="dijitMenuItemIcon lconnSprite lconnSprite-iconCopy16" />
+			</td>
+			<td colspan="2" class="dijitReset dijitMenuItemLabel">${nls.templates}</td>
+		</tr>
+		
+		<tr
+			data-dojo-attach-event="onclick: setSelectedApplication, onmouseenter: displayHighlight, onmouseleave: removeHighlight"
+			class="dijitReset dijitMenuItem">
+			<td class="dijitReset"><img alt=""
+				class="dijitMenuItemIcon lconnSprite lconnSprite-iconConnections16" />
+			</td>
+			<td colspan="2" class="dijitReset dijitMenuItemLabel">${nls.allConnections}</td>
+		</tr>
+
+
+	</tbody>
+</table>

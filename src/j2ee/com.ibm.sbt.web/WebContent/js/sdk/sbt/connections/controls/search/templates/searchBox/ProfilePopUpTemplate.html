@@ -1,0 +1,41 @@
+<table role="presentation" tabindex="0"
+	data-dojo-attach-event="blur: handleBlur, onkeypress: onKeyPress"
+	class="dijit dijitMenu dijitReset dijitMenuTable lotusNavMenu lconnSearchScope dijitMenuActive"
+	style="position:fixed;">
+	<tbody tabindex="0" class="dijitReset">
+
+		<tr
+			data-dojo-attach-event="onmouseenter: displayHighlight, onmouseleave: removeHighlight, onclick: setSelectedApplication"
+			class="dijitReset dijitMenuItem lotusAlignLeft">
+
+			<td class="dijitReset"><img alt=""
+				class="dijitMenuItemIcon lconnSprite lconnSprite-iconProfiles16" />
+			</td>
+
+			<td colspan="2" class="dijitReset dijitMenuItemLabel">${nls.profilesByName}</td>
+		</tr>
+		
+		<tr
+			data-dojo-attach-event="onmouseenter: displayHighlight, onmouseleave: removeHighlight, onclick: setSelectedApplication"
+			class="dijitReset dijitMenuItem lotusAlignLeft">
+
+			<td class="dijitReset"><img alt=""
+				class="dijitMenuItemIcon lconnSprite lconnSprite-iconProfiles16" />
+			</td>
+
+			<td colspan="2" class="dijitReset dijitMenuItemLabel">${nls.profilesByKeyword}</td>
+		</tr>
+		
+		<tr
+			data-dojo-attach-event="onmouseenter: displayHighlight, onmouseleave: removeHighlight, onclick: setSelectedApplication"
+			class="dijitReset dijitMenuItem lotusAlignLeft">
+
+			<td class="dijitReset"><img alt=""
+				class="dijitMenuItemIcon lconnSprite lconnSprite-iconProfiles16" />
+			</td>
+
+			<td colspan="2" class="dijitReset dijitMenuItemLabel">${nls.searchDirectory}</td>
+		</tr>
+
+	</tbody>
+</table>

@@ -181,6 +181,8 @@ define(["../../../declare", "../../../lang", "../../../dom", "../../../widget/_T
 				// Create member list
 				this.renderer.renderMemberList(this.domNode);
 			}
+			
+			this.renderer.doAttachPoints(this,this.domNode);
 		},
 		
 		/**
@@ -482,7 +484,7 @@ define(["../../../declare", "../../../lang", "../../../dom", "../../../widget/_T
 				this.removeHighlight(element, object, event);
 				self.selectedApplication = element.children[1].textContent;
 				self.renderer.removePopUp(self.domNode,this._appsPopUp);
-				self.renderer.changeSelectedApplication(element.children[1].textContent,element.children[0].children[0]);
+				self.renderer.changeSelectedApplication(element.children[1].textContent,element.children[0].children[0],self);
 				
 			},
 			

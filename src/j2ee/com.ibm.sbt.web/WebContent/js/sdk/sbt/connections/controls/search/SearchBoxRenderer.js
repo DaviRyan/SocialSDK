@@ -16,17 +16,38 @@
 
 define(["../../../declare",
         "../../../lang",
-        "../../../text!./templates/SearchBoxTemplate.html",
-        "../../../text!./templates/SearchSuggestTemplate.html",
-        "../../../text!./templates/PopUpTemplate.html",
-        "../../../text!./templates/SuggestPopUpTemplate.html",
+        "../../../text!./templates/searchBox/SearchBoxTemplate.html",
+        "../../../text!./templates/searchBox/SearchSuggestTemplate.html",
+        "../../../text!./templates/searchBox/PopUpTemplate.html",
+        "../../../text!./templates/searchBox/SuggestPopUpTemplate.html",
+        "../../../text!./templates/searchBox/ProfilePopUpTemplate.html",
+        "../../../text!./templates/searchBox/ProfileSearchTemplate.html",
         "../../../i18n!./nls/SearchBoxRenderer",
-        "../../../text!./templates/MemberListItemTemplate.html",
-        "../../../text!./templates/MemberListTemplate.html",
-        "../../../text!./templates/SingleApplicationSearch.html",
-        "../../../text!./templates/SingleSearchPopUp.html"], 
-        function(declare,lang, template, SuggestTemplate, PopUpTemplate, SuggestionPopUp ,nls,
-        		MemberListItemTemplate, MemberListTemplate, SingleApplicationSearch, SingleSearchPopUp){
+        "../../../text!./templates/searchBox/MemberListItemTemplate.html",
+        "../../../text!./templates/searchBox/MemberListTemplate.html",
+        "../../../text!./templates/searchBox/SingleApplicationSearch.html",
+        "../../../text!./templates/searchBox/SingleSearchPopUp.html",
+        "../../../text!./templates/searchBox/CommunitySearchTemplate.html",
+        "../../../text!./templates/searchBox/CommunitySearchPopUp.html",
+        "../../../text!./templates/searchBox/ActivitySearchTemplate.html",
+        "../../../text!./templates/searchBox/ActivityPopUpTemplate.html",
+        "../../../text!./templates/searchBox/BlogSearchTemplate.html",
+        "../../../text!./templates/searchBox/BlogPopUpTemplate.html",
+        "../../../text!./templates/searchBox/BookmarkSearchTemplate.html",
+        "../../../text!./templates/searchBox/BookmarkPopUpTemplate.html",  
+        "../../../text!./templates/searchBox/FileSearchTemplate.html",
+        "../../../text!./templates/searchBox/FilePopUpTemplate.html",
+        "../../../text!./templates/searchBox/ForumSearchTemplate.html",
+        "../../../text!./templates/searchBox/ForumPopUpTemplate.html",
+        "../../../text!./templates/searchBox/WikiSearchTemplate.html",
+        "../../../text!./templates/searchBox/WikiPopUpTemplate.html"], 
+        function(declare,lang, template, SuggestTemplate, PopUpTemplate, SuggestionPopUp ,
+        		ProfilePopUpTemplate,ProfileSearchTemplate,nls,
+        		MemberListItemTemplate, MemberListTemplate, SingleApplicationSearch, SingleSearchPopUp,
+        		CommunitySearchTemplate,CommunityPopUpTemplate, ActivitySearchTemplate, ActivityPopUpTemplate,
+        		BlogSearchTemplate,BlogPopUpTemplate,BookmarkSearchTemplate,BookmarkPopUpTemplate,
+        		FileSearchTemplate,FilePopUpTemplate,ForumSearchTemplate,ForumPopUpTemplate,
+        		WikiSearchTemplate,WikiPopUpTemplate){
 	/**
 	 * @class SearchBoxRenderer
 	 * @namespace sbt.connections.controls.search
@@ -46,6 +67,55 @@ define(["../../../declare",
 		
 		_suggestionContainer: null,
 		
+		_templates:{
+			all :{
+				searchTemplate:template,
+				popUpTemplate: PopUpTemplate,
+				suggestPopUpTemplate: SuggestionPopUp
+			},
+			profiles:{
+				searchTemplate:ProfileSearchTemplate,
+				popUpTemplate: ProfilePopUpTemplate,
+				suggestPopUpTemplate: SuggestionPopUp
+			},
+			communities:{
+				searchTemplate:CommunitySearchTemplate,
+				popUpTemplate: CommunityPopUpTemplate,
+				suggestPopUpTemplate: SuggestionPopUp
+			},
+			activities:{
+				searchTemplate:ActivitySearchTemplate,
+				popUpTemplate: ActivityPopUpTemplate,
+				suggestPopUpTemplate: SuggestionPopUp
+			},
+			blogs:{
+				searchTemplate:BlogSearchTemplate,
+				popUpTemplate: BlogPopUpTemplate,
+				suggestPopUpTemplate: SuggestionPopUp
+			},
+			bookmarks:{
+				searchTemplate:BookmarkSearchTemplate,
+				popUpTemplate: BookmarkPopUpTemplate,
+				suggestPopUpTemplate: SuggestionPopUp
+			},
+			files:{
+				searchTemplate:FileSearchTemplate,
+				popUpTemplate: FilePopUpTemplate,
+				suggestPopUpTemplate: SuggestionPopUp
+			},
+			forums:{
+				searchTemplate:ForumSearchTemplate,
+				popUpTemplate: ForumPopUpTemplate,
+				suggestPopUpTemplate: SuggestionPopUp
+			},
+			wikis:{
+				searchTemplate:WikiSearchTemplate,
+				popUpTemplate: WikiPopUpTemplate,
+				suggestPopUpTemplate: SuggestionPopUp
+			}
+			
+		},
+		
 		/**
 		 * SearchBoxRenderer class constructor function
 		 * @method constructor
@@ -61,20 +131,28 @@ define(["../../../declare",
 		 * @method getDomeNode
 		 * @returns The Search Box Dom Node 
 		 */
-		getDomNode: function(SearchBox){
+		getDomNode: function(searchBox){
 			
 			var htmlTemplate = "";
 			
-			if(SearchBox.predefinedSearch){
+			if(searchBox.predefinedSearch){
 				var domStr = this._substituteItems(SingleApplicationSearch, this);
 				SingleApplicationSearch = domStr;
 				htmlTemplate = SingleApplicationSearch;
 			}else{
-				var domStr = this._substituteItems(template, this);
-				template = domStr;
-				htmlTemplate = template;
+				if(searchBox.searchType){
+					var domStr = this._substituteItems(this._templates[searchBox.searchType].searchTemplate, this);
+					template = domStr;
+					htmlTemplate = template;
+				}else{
+					var domStr = this._substituteItems(this._templates[all].searchTemplate, this);
+					template = domStr;
+					htmlTemplate = template;
+				}
+				
 			}
-
+			
+			searchBox.templateString = htmlTemplate;
 			var div = this._convertToDomNode(htmlTemplate);
 			
 			this._suggestionContainer = document.createElement("div");
@@ -83,7 +161,7 @@ define(["../../../declare",
 			
 			var temp = div.getElementsByTagName("input");
 			var input = temp[0];
-			SearchBox._searchInput = input;
+			searchBox._searchInput = input;
 			
 			return div;	
 		},
@@ -94,12 +172,21 @@ define(["../../../declare",
 		 * @method getPopUpNode
 		 * @returns the applications list pop up DOM Node
 		 */
-		getPopUpNode: function(){
+		getPopUpNode: function(searchBox){
+			var div;
 			
-			var domstr = this._substituteItems(PopUpTemplate, this);
-			PopUpTemplate = domstr;
+			if(searchBox.searchType){
+				var domstr = this._substituteItems(this._templates[searchBox.searchType].popUpTemplate,this);
+				this._templates[searchBox.searchType].popUpTemplate = domstr;
+				
+				div = this._convertToDomNode(this._templates[searchBox.searchType].popUpTemplate);	
+			}else{
+				var domstr = this._substituteItems(PopUpTemplate, this);
+				PopUpTemplate = domstr;
+				
+				div = this._convertToDomNode(PopUpTemplate);
+			}
 			
-			var div = this._convertToDomNode(PopUpTemplate);
 			return div;	
 		},
 		
@@ -155,7 +242,7 @@ define(["../../../declare",
 		renderPopUp: function(searchBox,el){
 			
 			if(!this._appsPopUp){
-				this._appsPopUp = this.getPopUpNode();
+				this._appsPopUp = this.getPopUpNode(searchBox);
 				this._doAttachEvents(searchBox,this._appsPopUp,{});	
 			}
 			
@@ -270,8 +357,8 @@ define(["../../../declare",
 		 * @param selectedApplication The name of the application to display
 		 * @param el The table row element
 		 */
-		changeSelectedApplication: function(selectedApplication, trImgIcon){
-			var elements = document.getElementsByTagName("*");
+		changeSelectedApplication: function(selectedApplication, trImgIcon,searchBox){
+			/*var elements = document.getElementsByTagName("*");
 			for(var i=0;i<elements.length;i++){
 				if(elements[i].textContent == nls.selectedApplication){
 					
@@ -287,7 +374,8 @@ define(["../../../declare",
 					var newClass = trImgIcon.classList[index];
 					imgEl.classList.add(newClass);
 				}
-			}
+			}*/
+		console.log("!");
 		},
 		
 		/*
@@ -349,6 +437,10 @@ define(["../../../declare",
 		 */
 		_substituteMemberName: function(template,memberName){
 			return template.replace("${memberName}", memberName);
+		},
+		
+		doAttachPoints: function(searchBox,el){
+			searchBox._doAttachPoints(searchBox,el);
 		},
 		
 		/*
