@@ -188,13 +188,13 @@ define(["../../../declare", "../../../stringUtil", "../../../i18n", "../../../la
                  var tagsStr = "";
                  if (lang.isArray(tags)) {
                      for (var i=0; i<tags.length; i++) {
-                         tagsStr += this._substitute(this.tagAnchorTemplate, { tagName : tags[i] });
+                         tagsStr += grid._substitute(this.tagAnchorTemplate, { tagName : tags[i] });
                          if (i+1 < tags.length) {
                              tagsStr += ", ";
                          }
                      }
                  } else if (lang.isString(tags)) {
-                	 tagsStr = this._substitute(this.tagAnchorTemplate, { tagName : tags });
+                	 tagsStr = grid._substitute(this.tagAnchorTemplate, { tagName : tags });
                  }
                  return tagsStr;
              }

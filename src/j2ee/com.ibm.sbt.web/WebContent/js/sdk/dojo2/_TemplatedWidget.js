@@ -17,9 +17,9 @@
 /**
  * 
  */
-define([ "../_bridge/declare",
+define([ "../_bridge/declare","../_bridge/dom","../_bridge/lang",
          "dojo/_base/lang", "dojo/string", "dojo/dom-construct", "dojo/_base/connect", "dojo/touch", "dijit/_WidgetBase", "dijit/_TemplatedMixin"], 
-        function(declare, lang, string, domConstruct, connect, touch, _WidgetBase, _TemplatedMixin) {
+        function(declare, dom, lang, sbtLang, string, domConstruct, connect, touch, _WidgetBase, _TemplatedMixin) {
 
     /**
      * @module sbt.widget._TemplatedWidget
@@ -41,34 +41,27 @@ define([ "../_bridge/declare",
             return connect.connect(object, touch[event] || event, method);
         },
         
-        _mixin: function(dest,sources) {
-        	return lang.mixin.apply(this, arguments);
+        _substitute: function(template, map, transformer, thisObject) {
+        	if (!transformer) {
+                transformer = function(value, key) {
+		            if (typeof value == "undefined") {
+		                // check the renderer for the property
+		                value = sbtLang.getObject(key, false, self);
+		            }
+		
+		            if (typeof value == "undefined" || value == null) {
+		                return "";
+		            }
+
+            		return value;
+                };
+	        }
+	        if (!thisObject) {
+	                thisObject = this;
+	        }
+        	return string.substitute(template, map, transformer, thisObject);
         },
-        
-        _destroy: function(node) {
-            domConstruct.destroy(node);
-        },
-        
-        _create: function(name, attribs, parent) {
-            return domConstruct.create(name, attribs, parent);
-        },
-        
-        _toDom: function(template, parent) {
-            return domConstruct.toDom(template, parent);
-        },
-        
-        _isString: function(obj) {
-            return lang.isString(obj);
-        },
-        
-        _substitute: function(template, map, transform, thisObject) {
-        	return string.substitute(template, map, transform, thisObject);
-        },
-        
-        _getObject: function(name, create, context) {
-            return lang.getObject(name, create, context);
-        },
-        
+
         _hitch: function(scope, method) {
             if (arguments.length > 2) {
                 return lang._hitchArgs.apply(dojo, arguments);
