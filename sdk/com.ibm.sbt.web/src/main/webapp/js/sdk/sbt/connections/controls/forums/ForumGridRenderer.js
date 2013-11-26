@@ -17,6 +17,8 @@
 define(["../../../declare",
         "../ConnectionsGridRenderer",
         "../../../i18n",
+        "../../../dom",
+        "../../../lang",
         "../../../text!./templates/ForumRow.html",
         "../../../text!./templates/TableHeader.html",
         "../../../text!./templates/TopicRow.html",
@@ -28,7 +30,7 @@ define(["../../../declare",
         "../../../text!./templates/MyTopicsBreadCrumb.html",
         "../../../i18n!./nls/ForumGridRenderer"], 
 
-    function(declare, ConnectionsGridRenderer, i18n, ForumRow, tableHeader, TopicRow, 
+    function(declare, ConnectionsGridRenderer, i18n, dom, lang, ForumRow, tableHeader, TopicRow, 
     		TopicHeader, ReplyTemplate, ReplyHeader,ReplyBreadCrumb,TopicBreadCrumb, 
     		MyTopicsBreadCrumb, nls){
 		
@@ -90,7 +92,7 @@ define(["../../../declare",
 	         */
 	        render: function(grid, el, items, data) {
 	           while (el.childNodes[0]) {
-	               this._destroy(el.childNodes[0]);
+	               dom.destroy(el.childNodes[0]);
 	           }
 	           var size = items.length;
 	           if (size === 0) {
@@ -124,30 +126,30 @@ define(["../../../declare",
 	        renderHeader : function(grid,el,items,data,tbody) {
 	            if (this.headerTemplate && !grid.hideHeader) {
 	                var node;
-	                if (this._isString(this.headerTemplate)) {
+	                if (lang.isString(this.headerTemplate)) {
 	                    var domStr = this._substituteItems(this.headerTemplate, grid, this, items, data);
-	                    node = this._toDom(domStr, el.ownerDocument);
+	                    node = dom.toDom(domStr, el.ownerDocument);
 	                } else {
 	                    node = this.headerTemplate.cloneNode(true);
 	                }
 	                tbody.appendChild(node);
 	                
-	                this._doAttachEvents(grid, tbody, data);
+	                grid._doAttachEvents(tbody, data);
 	            }
 	        },
 	        
 	        renderBreadCrumb: function(grid,el,items,data) {
 	            if (this.breadCrumb && !grid.hideBreadCrumb) {
 	                var node;
-	                if (this._isString(this.breadCrumb)) {
+	                if (lang.isString(this.breadCrumb)) {
 	                    var domStr = this._substituteItems(this.breadCrumb, grid, this, items, data);
-	                    node = this._toDom(domStr, el.ownerDocument);
+	                    node = dom.toDom(domStr, el.ownerDocument);
 	                } else {
 	                    node = this.breadCrumb.cloneNode(true);
 	                }
 	                el.appendChild(node);
 	                
-	                this._doAttachEvents(grid, el, data);
+	                grid._doAttachEvents(el, data);
 	            }
 	        },
 	    	 /***
@@ -161,15 +163,14 @@ define(["../../../declare",
 	         * @returns - A table body element, that is attached to a table
 	         */
 	        renderTable: function(grid, el, items, data) {       	
-	            var table = this._create("table", {
+	            var table = dom.create("table", {
 	                "class": this.tableClass,
 	                border:"0",
 	                cellspacing:"0",
 	                cellpadding:"0",
-	               // summary:this.nls.summary
 	                role:"presentation"
 	            }, el);
-	            var tbody = this._create("tbody", null, table);
+	            var tbody = dom.create("tbody", null, table);
 	            return tbody;
 	        },
 	        
@@ -181,19 +182,19 @@ define(["../../../declare",
 	         */
 	        renderEmpty: function(grid, el,data) {
 	           while (el.childNodes[0]) {
-	               this._destroy(el.childNodes[0]);
+	               dom.destroy(el.childNodes[0]);
 	           }
 	            
 	           this.renderBreadCrumb(grid, el, data );
 	           
-	           var ediv = this._create("div", {
+	           var ediv = dom.create("div", {
 		             "class": this.emptyClass,
 		             innerHTML: "<h2>" + this.nls.noResults +"</h2>",
 		             role: "document",
 		             tabIndex: 0
 		           }, el, "only");
 	           
-	           this._doAttachEvents(grid, el, data);
+	           grid._doAttachEvents(el, data);
 	        },
 	        
 	        

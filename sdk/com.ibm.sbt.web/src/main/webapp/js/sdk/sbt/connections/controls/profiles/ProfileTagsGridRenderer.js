@@ -17,12 +17,13 @@
 /**
  * 
  */
-define(["../../../declare", "../../../stringUtil", "../../../xpath", "../../../xml",
+define(["../../../declare", "../../../dom","../../../lang",
+        "../../../stringUtil", "../../../xpath", "../../../xml",
         "../ConnectionsGridRenderer",
         "../../../i18n!sbt/connections/controls/profiles/nls/ProfileTagsGridRenderer",
         "../../../text!sbt/connections/controls/profiles/templates/TagListRow.html",
         "../../../text!sbt/connections/controls/profiles/templates/TagListHeader.html"],
-        function(declare, stringUtil, xpath, xml, ConnectionsGridRenderer, nls, tagListTmpl, tagListHdrTmpl) {
+        function(declare, dom, lang, stringUtil, xpath, xml, ConnectionsGridRenderer, nls, tagListTmpl, tagListHdrTmpl) {
 		
     /**
      * @class ProfileTagsGridRenderer
@@ -55,7 +56,7 @@ define(["../../../declare", "../../../stringUtil", "../../../xpath", "../../../x
          
          render: function(grid, el, items, data) {
              while (el.childNodes[0]) {
-                 this._destroy(el.childNodes[0]);
+                 dom.destroy(el.childNodes[0]);
              }
              var size = items.length;
              if (size === 0) {
@@ -77,21 +78,21 @@ define(["../../../declare", "../../../stringUtil", "../../../xpath", "../../../x
           renderTagListHeader: function(grid, el, items, data) {   
         	  if (this.listHeaderTemplate && !grid.hideListHeader) {
                   var node;
-                  if (this._isString(this.listHeaderTemplate)) {
+                  if (lang.isString(this.listHeaderTemplate)) {
                       var domStr = this._substituteItems(this.listHeaderTemplate, grid, this, items, data);
-                      node = this._toDom(domStr, el.ownerDocument);
+                      node = dom.toDom(domStr, el.ownerDocument);
                   } else {
                       node = this.listHeaderTemplate.cloneNode(true);
                   }
                   el.appendChild(node);
                   
-                  this._doAttachEvents(grid, el, data);
+                 grid._doAttachEvents(el, data);
               }
           },
 
           renderContainer: function(grid, el, items, data) {          
-              var div = this._create("div", { "class": this.containerClass }, el);
-              return this._create("ul", { "class": this.tagListClass }, div);
+              var div = dom.create("div", { "class": this.containerClass }, el);
+              return dom.create("ul", { "class": this.tagListClass }, div);
           },
 
           /**

@@ -580,8 +580,7 @@ define(
 								// elements
 								// because as we remove a class from an element,
 								// the array of elements will dynamically reduce
-								this.renderer
-										._hitch(
+								this._hitch(
 												args,
 												this.fileService
 														.getPinnedFiles()
@@ -646,8 +645,7 @@ define(
 							};
 
 							if (el.firstElementChild.className == this.renderer.unPinnedClass) {
-								this.renderer
-										._hitch(
+								this._hitch(
 												args,
 												this.fileService
 														.pinFile(uuid)
@@ -670,8 +668,7 @@ define(
 																			.log("Error pinning file");
 																}));
 							} else if (el.firstElementChild.className == this.renderer.pinnedClass) {
-								this.renderer
-										._hitch(
+								this._hitch(
 												args,
 												this.fileService
 														.unpinFile(uuid)
