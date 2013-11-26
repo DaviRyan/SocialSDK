@@ -35,7 +35,7 @@ define([ "../_bridge/declare","../_bridge/dom","../_bridge/lang",
         _place: function(node, refNode, pos) {
         	domConstruct.place(node, refNode, pos);
         },
-        
+         
         _stopEvent: function(event) {
             dojo.stopEvent(event);
         },
