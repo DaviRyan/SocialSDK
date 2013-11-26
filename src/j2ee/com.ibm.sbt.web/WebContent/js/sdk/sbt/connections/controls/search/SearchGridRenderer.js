@@ -18,6 +18,7 @@
  * 
  */
 define(["../../../declare",
+        "../../../dom",
         "../ConnectionsGridRenderer",
         "../../../lang", "../../../stringUtil", "../../../i18n",
         "../../../i18n!./nls/SearchGridRenderer",
@@ -41,7 +42,7 @@ define(["../../../declare",
         "../../../text!./templates/img.html",
         "../../../text!./templates/em.html",
         "../../../text!./templates/div.html"],
-        function(declare, ConnectionsGridRenderer, lang, stringUtil, i18n, nls, bookmarkBodyTemplate, calendarBodyTemplate, communityBodyTemplate, defaultBodyTemplate, defaultHeaderTemplate, defaultSummaryTemplate, profileBodyTemplate, profileHeaderTemplate, personCardTemplate, statusUpdateExtraHeaderTemplate, statusUpdateHeaderTemplate, aElement, tdElement, trElement, liElement, ulElement, spanElement, imgElement, emElement, divElement) {
+        function(declare,dom, ConnectionsGridRenderer, lang, stringUtil, i18n, nls, bookmarkBodyTemplate, calendarBodyTemplate, communityBodyTemplate, defaultBodyTemplate, defaultHeaderTemplate, defaultSummaryTemplate, profileBodyTemplate, profileHeaderTemplate, personCardTemplate, statusUpdateExtraHeaderTemplate, statusUpdateHeaderTemplate, aElement, tdElement, trElement, liElement, ulElement, spanElement, imgElement, emElement, divElement) {
 
     /**
      * @class SearchGridRenderer
@@ -984,17 +985,17 @@ define(["../../../declare",
            while (el.childNodes[0]) {
                this._destroy(el.childNodes[0]);
            }
-           var lotusUiDiv = this._create("div", { // here purely so a parent of the empty div has the lotusui class...
+           var lotusUiDiv = dom.create("div", { // here purely so a parent of the empty div has the lotusui class...
              "class": "lotusui lconnSearchResults",
              innerHTML: ""
            }, el);
-           var lotusEmptyDiv = this._create("div", {
+           var lotusEmptyDiv = dom.create("div", {
                "class": this.emptyClass,
                innerHTML: "",
                "aria-relevant": "all",
                "aria-live": "assertive"
              }, lotusUiDiv);
-           this._create("span", {
+           dom.create("span", {
                innerHTML: this._nls.empty
              }, lotusEmptyDiv);
         },

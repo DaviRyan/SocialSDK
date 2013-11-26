@@ -31,6 +31,8 @@ define([ "../../declare", "../../dom", "../../lang" ],
          */
     	nls: null,
     	
+
+    	
     	/**
     	 * CSS class to be used for tables - see ConnectionsGridRenderer
     	 */

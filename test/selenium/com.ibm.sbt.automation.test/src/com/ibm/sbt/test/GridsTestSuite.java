@@ -21,6 +21,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import com.ibm.sbt.automation.core.environment.TestEnvironment;
+import com.ibm.sbt.test.controls.ActivitiesGridTestSuite;
+import com.ibm.sbt.test.controls.BookmarksGridTestSuite;
 import com.ibm.sbt.test.controls.CommunitiesGridTestSuite;
 import com.ibm.sbt.test.controls.FilesGridTestSuite;
 import com.ibm.sbt.test.controls.ForumGridTestSuite;
@@ -35,7 +37,7 @@ import com.ibm.sbt.test.controls.ProfilesGridTestSuite;
  * @date 12 Mar 2013
  */
 @RunWith(Suite.class)
-@SuiteClasses({ GridTestSuite.class, CommunitiesGridTestSuite.class, FilesGridTestSuite.class, ForumGridTestSuite.class, ProfilesGridTestSuite.class, MySocialGridTestSuite.class})
+@SuiteClasses({ GridTestSuite.class, ActivitiesGridTestSuite.class, BookmarksGridTestSuite.class, CommunitiesGridTestSuite.class, FilesGridTestSuite.class, ForumGridTestSuite.class, ProfilesGridTestSuite.class})
 public class GridsTestSuite {
     @AfterClass
     public static void cleanup() {

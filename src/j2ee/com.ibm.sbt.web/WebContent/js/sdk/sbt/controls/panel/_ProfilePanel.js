@@ -69,13 +69,13 @@ define(["../../declare", "../../lang", "../../dom", "../../widget/_TemplatedWidg
         	try {
             	var el = this.domNode;
             	while (el.childNodes[0]) {
-                    this._destroy(el.childNodes[0]);
+                    dom.destroy(el.childNodes[0]);
                 }
             	
             	var node;
-                if (this._isString(this.template)) {
+                if (lang.isString(this.template)) {
                     var domStr = this._substituteItems(this.template, this.profile);
-                    node = this._toDom(domStr, el.ownerDocument);
+                    node = dom.toDom(domStr, el.ownerDocument);
                 } else {
                     node = this.template.cloneNode(true);
                 }
@@ -96,7 +96,7 @@ define(["../../declare", "../../lang", "../../dom", "../../widget/_TemplatedWidg
             return this._substitute(template, profile, function(value,key) {
                 if (typeof value == "undefined") {
                     // check the self for the property
-                    value = this._getObject(key, false, self);
+                    value = lang.getObject(key, false, self);
                 }
 
                 if (typeof value == 'function') {
@@ -123,9 +123,9 @@ define(["../../declare", "../../lang", "../../dom", "../../widget/_TemplatedWidg
         _displayError: function(error) {
         	var el = this.domNode;
             while (el.childNodes[0]) {
-                this._destroy(el.childNodes[0]);
+                dom.destroy(el.childNodes[0]);
             }
-           var ediv = this._create("div", {
+           var ediv = dom.create("div", {
               "class": this.errorClass,
               innerHTML: error,
               role: "alert",

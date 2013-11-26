@@ -19,7 +19,7 @@
  */
 define([ "../_bridge/declare","../_bridge/dom","../_bridge/lang",
          "dojo/_base/lang", "dojo/string", "dojo/dom-construct", "dojo/_base/connect", "dojo/touch", "dijit/_WidgetBase", "dijit/_TemplatedMixin"], 
-        function(declare, dom, lang, sbtLang, string, domConstruct, connect, touch, _WidgetBase, _TemplatedMixin) {
+        function(declare, dom, sbtLang, lang, string, domConstruct, connect, touch, _WidgetBase, _TemplatedMixin) {
 
     /**
      * @module sbt.widget._TemplatedWidget
@@ -27,6 +27,10 @@ define([ "../_bridge/declare","../_bridge/dom","../_bridge/lang",
     var _TemplatedWidget = declare([ dijit._WidgetBase, dijit._TemplatedMixin ], {
         
         _blankGif: dijit._WidgetBase.prototype._blankGif,
+        
+        _attachEventAttribute: "data-dojo-attach-event",
+        
+        _attachPointAttribute: "data-dojo-attach-point",
 
         _place: function(node, refNode, pos) {
         	domConstruct.place(node, refNode, pos);
@@ -73,7 +77,7 @@ define([ "../_bridge/declare","../_bridge/dom","../_bridge/lang",
         _doAttachPoints: function(scope,el){
        	 var nodes = (el.all || el.getElementsByTagName("*"));
 	            for (var i in nodes) {
-	                var attachPoint = (nodes[i].getAttribute) ? nodes[i].getAttribute("data-dojo-attach-point") : null;
+	                var attachPoint = (nodes[i].getAttribute) ? nodes[i].getAttribute(this._attachPointAttribute) : null;
 	                if (attachPoint) {
 	                	
 	                	var att = nodes[i].getAttribute("data-dojo-attach-point");
@@ -84,7 +88,7 @@ define([ "../_bridge/declare","../_bridge/dom","../_bridge/lang",
         _doAttachEvents: function(el, scope) {
             var nodes = (el.all || el.getElementsByTagName("*"));
             for (var i in nodes) {
-                var attachEvent = (nodes[i].getAttribute) ? nodes[i].getAttribute(this.AttachEventAttribute) : null;
+                var attachEvent = (nodes[i].getAttribute) ? nodes[i].getAttribute(this._attachEventAttribute) : null;
                 if (attachEvent) {
                     nodes[i].removeAttribute(this.AttachEventAttribute);
                     var event, events = attachEvent.split(/\s*,\s*/);
@@ -93,10 +97,10 @@ define([ "../_bridge/declare","../_bridge/dom","../_bridge/lang",
                             var func = null;
                             if (event.indexOf(":") != -1) {
                                 var eventFunc = event.split(":");
-                                event = this._trim(eventFunc[0]);
-                                func = this._trim(eventFunc[1]);
+                                event = sbtLang.trim(eventFunc[0]);
+                                func = sbtLang.trim(eventFunc[1]);
                             } else {
-                                event = this._trim(event);
+                                event = sbtLang.trim(event);
                             }
                             if (!func) {
                                 func = event;
