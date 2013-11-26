@@ -119,7 +119,7 @@ define(["../../declare", "../../lang", "../../dom", "../../widget/_TemplatedWidg
                 return value;
             }, this);
         },
-                
+               
         _displayError: function(error) {
         	var el = this.domNode;
             while (el.childNodes[0]) {
