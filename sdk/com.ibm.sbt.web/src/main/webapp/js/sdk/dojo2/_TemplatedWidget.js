@@ -39,6 +39,10 @@ define([ "../_bridge/declare","../_bridge/dom","../_bridge/lang",
         _stopEvent: function(event) {
             dojo.stopEvent(event);
         },
+        
+        _connect: function(object, event, method) {
+            return connect.connect(object, touch[event] || event, method);
+        },
          
         _substitute: function(template, map, transformer, thisObject) {
            if (!transformer) {
