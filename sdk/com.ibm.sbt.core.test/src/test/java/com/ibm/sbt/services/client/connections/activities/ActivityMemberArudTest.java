@@ -1,5 +1,5 @@
 /*
- * © Copyright IBM Corp. 2014
+ * ï¿½ Copyright IBM Corp. 2014
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import org.junit.Test;
 
 import com.ibm.commons.xml.XMLException;
 import com.ibm.sbt.services.client.ClientServicesException;
+import com.ibm.sbt.services.client.connections.common.Member;
 
 /**
  * @author mwallace
@@ -46,6 +47,25 @@ public class ActivityMemberArudTest extends BaseActivityServiceTest {
 		Assert.assertNotNull("Invalid activity node id", activityNode.getId());
 		Assert.assertNotNull("Invalid activity node id", activityNode.getActivityNodeUuid());
 		Assert.assertNotNull("Invalid activity node edit url", activityNode.getEditUrl());		
+	}
+	
+	@Test
+	public void addActivityMembers() throws ClientServicesException{
+		String memberId = this.properties.getProperty("userId2");
+		String memberId2 = this.properties.getProperty("userId3");
+		
+		Member member = new Member();
+		Member member2 = new Member();
+		member.setId(memberId);
+		member2.setId(memberId2);
+		
+		Member[] members = {member,member2};
+
+		Activity activity = createActivity();
+		activity.addMembers(activity,members);
+		//Assert.assertNotNull(member);
+		
+		this.activity = null;
 	}
 	
 	@Test
