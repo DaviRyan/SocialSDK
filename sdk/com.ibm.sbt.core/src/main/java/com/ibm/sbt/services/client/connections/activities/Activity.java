@@ -418,6 +418,14 @@ public class Activity extends ActivityNode {
 		return activityService.addMember(this, member);
 	}
 	
+	public void addMembers(Activity activity, Member[] members) throws ClientServicesException{
+		ActivityService activityService = getActivityService();
+		if (activityService == null) {
+			throw new ClientServicesException(null, "No activity service associated with this activity.");
+		}
+		activityService.addMembers(activity, members, null);
+	}
+	
 	/**
 	 * Retrieve an activity member.
 	 * 

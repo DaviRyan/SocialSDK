@@ -1,5 +1,5 @@
 /*
- * © Copyright IBM Corp. 2014
+ * ï¿½ Copyright IBM Corp. 2014
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,9 +64,9 @@ public class BaseActivityServiceTest extends BaseUnitTest {
 	 */
 	protected BasicEndpoint getBasicEndpoint() {
     	if (basicEndpoint == null) {
-	    	String url = System.getProperty("ServerUrl");
-	    	String user = System.getProperty("UserName");
-	    	String password = System.getProperty("Password");
+	    	String url = this.properties.getProperty("ServerUrl");
+	    	String user = this.properties.getProperty("UserName");
+	    	String password = this.properties.getProperty("Password");
 	    	
 			basicEndpoint = new BasicEndpoint();
 			basicEndpoint.setUrl(url);

@@ -19,6 +19,8 @@ package com.ibm.sbt.services.client.connections.common.serializers;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import com.ibm.commons.xml.DOMUtil;
+import com.ibm.commons.xml.XMLException;
 import com.ibm.sbt.services.client.base.ConnectionsConstants.Namespace;
 import com.ibm.sbt.services.client.base.serializers.AtomEntitySerializer;
 import com.ibm.sbt.services.client.connections.common.Member;
@@ -33,6 +35,7 @@ public class MemberSerializer extends AtomEntitySerializer<Member> {
 		super(member);
 	}
 	
+	
 	public String generateCreate() {
 		Node entry = entry();
 		
@@ -45,8 +48,28 @@ public class MemberSerializer extends AtomEntitySerializer<Member> {
 		return serializeToString();
 	}
 	
+	
+	
 	public String generateUpdate() {
 		return generateCreate();
+	}
+	
+	public String generateMemberFeed(Member[] members) {
+		Node feed = feed();
+		
+		for(int i=0;i<members.length;i++) {
+			this.entity = members[i];
+			
+			Node entry = entryElement();
+			
+			Node contrib = contributorElement();
+			contrib.appendChild(textElement(Namespace.SNX.getUrl(),"snx:userid",this.entity.getId()));
+			entry.appendChild(contrib);
+			entry.appendChild(textElement(Namespace.SNX.getUrl(), "snx:role", "member"));
+			feed.appendChild(entry);
+		}
+		System.out.println(serializeToString());
+		return serializeToString();
 	}
 	
 	private Element memberCategory() {

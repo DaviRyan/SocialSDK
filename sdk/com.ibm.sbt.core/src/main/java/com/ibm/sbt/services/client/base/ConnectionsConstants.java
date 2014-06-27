@@ -50,6 +50,7 @@ public final class ConnectionsConstants {
 	/**
 	 * General ATOM
 	 */
+	public static final String FEED = "feed";
 	public static final String ENTRY = "entry";
 	public static final String TAGS = "tags";
 	public static final String CATEGORY = "category";
@@ -70,6 +71,7 @@ public final class ConnectionsConstants {
 	public static final String LABEL = "label";
 	public static final String COMPLETED = "completed";
 	public static final String PERSON = "person";
+	public static final String SNXUSERID = "snx:userid";
 
 	/**
 	 * Activity ATOM

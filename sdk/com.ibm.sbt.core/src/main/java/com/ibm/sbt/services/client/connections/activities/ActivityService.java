@@ -538,6 +538,12 @@ public class ActivityService extends BaseService {
 		return createMemberEntity(requestUrl, member, parameters);
 	}
 	
+	public void addMembers(Activity activity, Member[] members, Map<String, String> parameters) throws ClientServicesException {
+		String requestUrl = ActivityUrls.ACTIVITY_ACL.format(endpoint, activity.getActivityUuid());
+		System.out.println(requestUrl);
+		createMemberFeed(requestUrl, members, parameters);
+	}
+	
 	/**
 	 * Retrieve an activity member.
 	 * 
@@ -614,6 +620,7 @@ public class ActivityService extends BaseService {
 	public Member updateMember(Activity activity, Member member, Map<String, String> parameters) throws ClientServicesException {
 		return addMember(activity.getActivityUuid(), member, parameters);
 	}
+	
 	
 	/**
 	 * Update an activity member.
@@ -871,6 +878,26 @@ public class ActivityService extends BaseService {
 		catch(Exception e) {
 			throw new ClientServicesException(e);
 		}
+	}
+	
+	protected void createMemberFeed(String requestUrl, Member[] members, Map<String, String> parameters) throws ClientServicesException {
+		try {
+			MemberSerializer serializer = new MemberSerializer(members[0]);
+			
+			Response response = createData(requestUrl, parameters, getHeaders(), serializer.generateMemberFeed(members));
+			if (isValidResponse(response, HTTPCode.CREATED)) {
+				//return updateMemberEntityData(members, response);
+			} else {
+				throw new ClientServicesException(response.getResponse(), response.getRequest());
+			}
+		}
+		catch(ClientServicesException e) {
+			throw e;
+		}
+		catch(Exception e) {
+			throw new ClientServicesException(e);
+		}
+		
 	}
 
 	protected Member updateMemberEntity(String requestUrl, Member member, Map<String, String> parameters) throws ClientServicesException {
