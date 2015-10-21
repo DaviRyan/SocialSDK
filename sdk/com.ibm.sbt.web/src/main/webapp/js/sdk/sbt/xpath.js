@@ -32,8 +32,8 @@ define([ 'sbt/declare' ], function(declare) {
 		setNsString : function() {
 			this.nsString = "";
 			if (this.nsArray) {
-				for ( var ns in this.nsArray) {
-					this.nsString += ' xmlns:' + ns + '="' + this.nsArray[ns]
+				for (var ns in this.nsArray) {
+				    this.nsString += ' xmlns:' + ns + '="' + this.nsArray[ns]
 							+ '"';
 				}
 			}
